@@ -1,0 +1,149 @@
+/* ================================
+   QPushButton - Material 3 style
+   ================================ */
+QPushButton {
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;           /* increased padding */
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 80px;
+    min-height: 36px;
+    background-color: #6200EE;
+}
+
+QPushButton:hover {
+    background-color: #3700B3;
+}
+
+QPushButton:pressed {
+    padding-left: 22px;
+    padding-top: 14px;
+    background-color: #3700B3;
+}
+
+QPushButton:disabled {
+    background-color: #E0E0E0;
+    color: #9E9E9E;
+}
+
+/* ================================
+   QListWidget - Material 3 style
+   ================================ */
+QListWidget {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    padding: 5px;
+    color: #000000;
+}
+
+QListWidget::item {
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+QListWidget::item:selected {
+    background-color: #6200EE;
+    color: #FFFFFF;
+    font-weight: 600;
+    outline: none;
+}
+
+/* Hover effect for selected item: subtle overlay */
+QListWidget::item:selected:hover {
+    background-color: #7F39FB;
+    color: #FFFFFF;
+}
+
+QListWidget::item:hover {
+    background-color: #EDE7F6;
+}
+
+/* Optional vertical scrollbar for lists */
+QScrollBar:vertical {
+    border: none;
+    background: #F5F5F5;
+    width: 12px;
+    margin: 0px 0px 0px 0px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:vertical {
+    background: #BB86FC;
+    min-height: 30px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #9A4DFF;
+}
+
+QScrollBar::add-line, QScrollBar::sub-line {
+    height: 0;
+}
+
+/* ================================
+   QMenuBar & QMenu - Material 3 style
+   ================================ */
+QMenuBar {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+QMenuBar::item {
+    spacing: 6px;
+    padding: 6px 12px;
+    background: transparent;
+    color: #000000;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+}
+
+QMenuBar::item:selected {
+    background-color: #EDE7F6;
+    border-radius: 8px;
+}
+
+QMenu {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+QMenu::item {
+    padding: 8px 20px;
+    border-radius: 8px;
+    color: #000000;
+}
+
+/* Hover & selection for normal items */
+QMenu::item:selected {
+    background-color: #EDE7F6;
+    color: #000000;
+}
+
+/* ================================
+   QActionGroup (exclusive) indicator
+   ================================ */
+QMenu::indicator:exclusive {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #6200EE;   /* Material 3 primary border */
+    background-color: #FFFFFF;
+    margin-left: 4px;
+}
+
+QMenu::indicator:exclusive:checked {
+    background-color: #6200EE;   /* filled circle when checked */
+}
+
+/* Hover overlay for checked items */
+QMenu::item:hover:checked {
+    background-color: #EDE7F6;   /* keep overlay subtle */
+}
