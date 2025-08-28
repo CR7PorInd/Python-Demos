@@ -3,6 +3,7 @@ from PySide6.QtGui import QAction, QActionGroup
 from PySide6.QtPdfWidgets import QPdfView
 from PySide6.QtWidgets import QMainWindow, QStackedWidget, QListWidget, QDockWidget, QMenuBar, QMenu
 
+from autogui import PyAutoGUIModule
 from webengine import WebEngineModule
 from pdftools import PdfToolsModule
 from charts import ChartModule
@@ -14,8 +15,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.savedUrl = QUrl("https://swordmasters.io/")
-        self.setWindowTitle("PySide6 Learning Modules")
+        self.savedUrl = QUrl("https://www.google.com/")
+        self.setWindowTitle("Python Demos App")
 
         self.pages = QStackedWidget(self)
         self.setCentralWidget(self.pages)
@@ -23,9 +24,10 @@ class MainWindow(QMainWindow):
 
         self.listWidget = QListWidget(self)
         self.listWidget.currentRowChanged.connect(self.pages.setCurrentIndex)
+        self.listWidget.setFixedWidth(250)
 
         self.listDock = QDockWidget(self)
-        self.listDock.setWindowTitle("PySide6 Modules")
+        self.listDock.setWindowTitle("Module Demos")
         self.listDock.setFeatures(QDockWidget.DockWidgetFeature.NoDockWidgetFeatures)
         self.listDock.setWidget(self.listWidget)
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.listDock)
@@ -36,35 +38,46 @@ class MainWindow(QMainWindow):
         # <editor-fold desc="QtWebEngine">
         self.webview = WebEngineModule()
         self.pages.addWidget(self.webview)
-        self.listWidget.addItem("Web View Demo")
-        self.webview.urlChanged.connect(self.updateWebActions)
+        self.listWidget.addItem("Qt WebEngine Demo")
+        self.webview.webview.urlChanged.connect(self.updateWebActions)
 
         self.webMenu = QMenu("Web View")
         self.menubar.addMenu(self.webMenu)
 
         self.reloadAction = QAction("Reload")
-        self.reloadAction.triggered.connect(self.webview.reload)
+        self.reloadAction.triggered.connect(self.webview.webview.reload)
         self.reloadAction.setShortcut("Ctrl+R")
         self.reloadAction.setStatusTip("Reload")
         self.webMenu.addAction(self.reloadAction)
 
         self.backAction = QAction("Back")
-        self.backAction.triggered.connect(self.webview.back)
+        self.backAction.triggered.connect(self.webview.webview.back)
         self.backAction.setShortcut("Alt+Left")
         self.backAction.setStatusTip("Back")
         self.webMenu.addAction(self.backAction)
 
         self.forwardAction = QAction("Forward")
-        self.forwardAction.triggered.connect(self.webview.forward)
+        self.forwardAction.triggered.connect(self.webview.webview.forward)
         self.forwardAction.setShortcut("Alt+Right")
         self.forwardAction.setStatusTip("Forward")
         self.webMenu.addAction(self.forwardAction)
+
+        self.muteRequested = True
+
+        self.muteAction = QAction("Mute")
+        self.muteAction.setCheckable(True)
+        self.muteAction.triggered.connect(self.toggleMute)
+        self.muteAction.setShortcut("Ctrl+Shift+M")
+        self.muteAction.setStatusTip("Mute/Unmute Audio")
+        self.muteAction.setChecked(True)
+        self.webMenu.addAction(self.muteAction)
+
         # </editor-fold>
 
         # <editor-fold desc="QtPdf">
         self.pdfModule = PdfToolsModule()
         self.pages.addWidget(self.pdfModule)
-        self.listWidget.addItem("PDF Tools Demo")
+        self.listWidget.addItem("Qt PDF Demo")
 
         self.pdfMenu = QMenu("PDF Tools")
         self.menubar.addMenu(self.pdfMenu)
@@ -128,7 +141,7 @@ class MainWindow(QMainWindow):
 
         self.charts = ChartModule()
         self.pages.addWidget(self.charts)
-        self.listWidget.addItem("Charts Demo")
+        self.listWidget.addItem("Qt Charts Demo")
 
         self.qml = QMLModule(self)
         self.pages.addWidget(self.qml)
@@ -136,8 +149,9 @@ class MainWindow(QMainWindow):
 
         self.camera = CameraModule(self)
         self.pages.addWidget(self.camera)
-        self.listWidget.addItem("Image Capture Demo")
+        self.listWidget.addItem("Qt Multimedia Demo - Image Capture")
 
+        # <editor-fold desc="Qt Multimedia - Image Capture">
         self.cameraMenu = QMenu("Camera")
         self.menubar.addMenu(self.cameraMenu)
 
@@ -152,19 +166,37 @@ class MainWindow(QMainWindow):
         self.screenCaptureAction.setShortcut('Shift+Alt+5')
         self.screenCaptureAction.setStatusTip("Take Screenshot")
         self.cameraMenu.addAction(self.screenCaptureAction)
+        # </editor-fold>
+
+        self.autoGUI = PyAutoGUIModule()
+        self.pages.addWidget(self.autoGUI)
+        self.listWidget.addItem("PyAutoGUI Demo")
+
+        self.autoGUIMenu = QMenu("Automation")
+        self.menubar.addMenu(self.autoGUIMenu)
+
+        self.typingAction = QAction("Start Typing", self)
+        self.typingAction.triggered.connect(self.autoGUI.startTyping)
+        self.typingAction.setStatusTip("Start Typing")
+        self.typingAction.setShortcut('Shift+Alt+T')
+        self.autoGUIMenu.addAction(self.typingAction)
 
         self.onPageChanged()
 
 
     def onPageChanged(self):
         if self.pages.currentIndex() == 0:
-            self.webview.load(self.savedUrl)
-            self.webview.page().setAudioMuted(False)
+            self.webview.webview.load(self.savedUrl)
+            if hasattr(self, 'muteRequested'):
+                if self.muteRequested:
+                    self.webview.webview.page().setAudioMuted(True)
+                else:
+                    self.webview.webview.page().setAudioMuted(False)
         else:
-            if self.webview.url() != QUrl("about:blank") and self.webview.isLoaded:
-                self.savedUrl = self.webview.url()
-            self.webview.setUrl(QUrl("about:blank"))
-            self.webview.page().setAudioMuted(True)
+            if self.webview.webview.url() != QUrl("about:blank") and self.webview.isLoaded:
+                self.savedUrl = self.webview.webview.url()
+            self.webview.webview.setUrl(QUrl("about:blank"))
+            self.webview.webview.page().setAudioMuted(True)
 
         if hasattr(self, 'camera'):
             if self.pages.currentIndex() == 4:
@@ -175,14 +207,27 @@ class MainWindow(QMainWindow):
         self.listWidget.setCurrentRow(self.pages.currentIndex())
 
     def updateWebActions(self):
-        if self.webview.history().canGoBack():
+        if self.webview.webview.history().canGoBack():
             self.backAction.setEnabled(True)
         else:
             self.backAction.setEnabled(False)
-        if self.webview.history().canGoForward():
+        if self.webview.webview.history().canGoForward():
             self.forwardAction.setEnabled(True)
         else:
             self.forwardAction.setEnabled(False)
+        self.webview.urlBar.setText(self.webview.webview.url().toString())
+
+    def toggleMute(self):
+        if self.muteAction.isChecked():
+            self.muteRequested = True
+            self.webview.webview.page().setAudioMuted(True)
+        else:
+            self.muteRequested = False
+            if self.pages.currentIndex() == 0:
+                self.webview.webview.page().setAudioMuted(False)
+
+
+
 
 
 

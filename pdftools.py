@@ -40,7 +40,7 @@ class PdfToolsModule(QWidget):
         if filePath:
             status = self.pdfDocument.load(filePath)
             if status == QPdfDocument.Status.Ready:
-                self.pdfView.setPageMode(QPdfView.PageMode.SinglePage)
+                self.pdfView.setPageMode(QPdfView.PageMode.MultiPage)
                 self.pdfView.setZoomMode(QPdfView.ZoomMode.FitInView)
 
     def exportFile(self):

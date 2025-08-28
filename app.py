@@ -1,7 +1,6 @@
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFontDatabase, QFont
 from PySide6.QtWidgets import QApplication
-from qt_material import apply_stylesheet
 
 import sys
 
@@ -9,7 +8,6 @@ from mainwindow import MainWindow
 
 app = QApplication(sys.argv)
 QApplication.setAttribute(Qt.ApplicationAttribute.AA_UseOpenGLES)
-# apply_stylesheet(app, theme='light_red.xml', invert_secondary=True)
 
 fid = QFontDatabase.addApplicationFont("Roboto.ttf")
 if fid == -1:
@@ -23,6 +21,7 @@ with open('material3.css', 'r') as stylesheet:
 app.setApplicationName("Python Demos App")
 app.setApplicationVersion("1.0.0")
 app.setQuitOnLastWindowClosed(True)
+app.setApplicationDisplayName("Python Demos App")
 app.setStyle("Fusion")
 
 window = MainWindow()

@@ -147,3 +147,98 @@ QMenu::indicator:exclusive:checked {
 QMenu::item:hover:checked {
     background-color: #EDE7F6;   /* keep overlay subtle */
 }
+
+QTabWidget::pane {
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    background: #FFFFFF;
+}
+
+QTabBar::tab {
+    background: #F5F5F5;
+    color: #1F1F1F;
+    padding: 8px 18px;
+    margin: 2px;
+    border-radius: 6px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+}
+
+QTabBar::tab:selected {
+    background: #6750A4; /* Material 3 Primary */
+    color: white;
+    font-weight: 500;
+}
+
+QTabBar::tab:hover {
+    background: #EADDFF; /* M3 hover */
+    color: #21005E;
+}
+
+QTabBar::tab:disabled {
+    background: #F0F0F0;
+    color: #9E9E9E;
+}
+
+QTabWidget::tab-bar {
+    left: 10px; /* slight padding */
+}
+
+QLineEdit {
+    border: 2px solid #6200EE;       /* M3 primary outline */
+    border-radius: 8px;              /* rounded corners */
+    padding: 6px 12px;               /* inner padding */
+    background-color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #1F1F1F;
+}
+
+QLineEdit:focus {
+    border: 2px solid #6750A4;       /* darker primary when focused */
+    background-color: #FFFFFF;
+}
+
+QLineEdit:disabled {
+    border: 2px solid #E0E0E0;
+    background-color: #F5F5F5;
+    color: #9E9E9E;
+}
+
+QLineEdit:hover:!focus {
+    border: 2px solid #7F39FB;       /* subtle hover effect */
+}
+
+/* ================================
+   QDockWidget - Material 3 style
+   ================================ */
+QDockWidget {
+    background-color: #FFFFFF;        /* M3 surface */
+    border: 1px solid #E0E0E0;       /* subtle outline */
+    titlebar-close-icon: url(none);   /* optional, remove default close icon */
+    titlebar-normal-icon: url(none);  /* optional, remove default icon */
+}
+
+QDockWidget::title {
+    background-color: #BB86FC;         /* M3 primary color */
+    color: white;
+    padding: 6px 12px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* Hover effect for title bar */
+QDockWidget::title:hover {
+    background-color: #7F39FB;        /* subtle lighter primary */
+}
+
+/* If docked, add subtle border separation */
+QDockWidget::separator {
+    background-color: #E0E0E0;
+    width: 4px;
+    height: 4px;
+}
+

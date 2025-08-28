@@ -1,8 +1,9 @@
 import os.path
 
+from PySide6.QtCore import QUrl
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWebEngineCore import QWebEngineSettings, QWebEngineProfile, QWebEnginePage, QWebEnginePermission
-from PySide6.QtWidgets import QMessageBox
+from PySide6.QtWidgets import QMessageBox, QWidget, QVBoxLayout, QLineEdit
 from pathlib import Path
 import json
 
@@ -63,28 +64,38 @@ class WebEnginePage(QWebEnginePage):
                 json.dump(self.savedPermissions, f, indent=4)
 
 
-class WebEngineModule(QWebEngineView):
+class WebEngineModule(QWidget):
     def __init__(self):
         super(WebEngineModule, self).__init__()
 
+        self.mainLayout = QVBoxLayout()
+        self.setLayout(self.mainLayout)
+
+        self.urlBar = QLineEdit()
+        self.urlBar.returnPressed.connect(self.updateUrl)
+        self.mainLayout.addWidget(self.urlBar)
+
+        self.webview = QWebEngineView()
+        self.mainLayout.addWidget(self.webview)
+
         # <editor-fold desc="Settings">
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.JavascriptCanOpenWindows, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.AutoLoadIconsForPage, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.JavascriptEnabled, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.ShowScrollBars, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.PdfViewerEnabled, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.ErrorPageEnabled, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.AllowWindowActivationFromJavaScript, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.JavascriptCanAccessClipboard, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.JavascriptCanPaste, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.ScreenCaptureEnabled, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.FullScreenSupportEnabled, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.WebGLEnabled, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.Accelerated2dCanvasEnabled, True)
-        self.settings().setAttribute(QWebEngineSettings.WebAttribute.PluginsEnabled, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.JavascriptCanOpenWindows, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.AutoLoadIconsForPage, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.JavascriptEnabled, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.ShowScrollBars, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.PdfViewerEnabled, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.ErrorPageEnabled, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.AllowWindowActivationFromJavaScript, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.JavascriptCanAccessClipboard, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.JavascriptCanPaste, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.ScreenCaptureEnabled, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.FullScreenSupportEnabled, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.WebGLEnabled, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.Accelerated2dCanvasEnabled, True)
+        self.webview.settings().setAttribute(QWebEngineSettings.WebAttribute.PluginsEnabled, True)
         # </editor-fold>
 
-        self.userProfile = QWebEngineProfile("User Profile", self)
+        self.userProfile = QWebEngineProfile("User Profile", self.webview)
 
         print(str(Path.home()) + "\\qtwebcache")
 
@@ -95,12 +106,12 @@ class WebEngineModule(QWebEngineView):
         self.userProfile.setHttpCacheType(QWebEngineProfile.HttpCacheType.MemoryHttpCache)
         self.userProfile.setPersistentCookiesPolicy(QWebEngineProfile.PersistentCookiesPolicy.ForcePersistentCookies)
 
-        self.setPage(WebEnginePage(self, self.userProfile))
+        self.webview.setPage(WebEnginePage(self.webview, self.userProfile))
 
-        self.load("https://swordmasters.io/")
+        self.webview.load("https://www.google.com/")
 
-        self.loadFinished.connect(self.onLoadFinish)
-        self.loadStarted.connect(self.onLoadStart)
+        self.webview.loadFinished.connect(self.onLoadFinish)
+        self.webview.loadStarted.connect(self.onLoadStart)
 
         self.isLoaded = False
 
@@ -110,5 +121,21 @@ class WebEngineModule(QWebEngineView):
 
     def onLoadStart(self):
         self.isLoaded = False
+
+    def updateUrl(self):
+        url = QUrl(self.urlBar.text())
+
+        # if scheme is blank
+        if url.scheme() == "":
+            urL = url.toString()
+            print(urL)
+            if '.' in urL:
+                url.setScheme("https")
+            else:
+                url.setUrl(
+                    f'https://www.google.com/search?q={self.urlBar.text()}&oq={self.urlBar.text()}'
+                    f'&aqs=chrome..69i57.1409j0j1&sourceid=chrome&ie=UTF-8')
+
+        self.webview.load(url)
 
 
