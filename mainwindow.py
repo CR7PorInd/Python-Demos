@@ -9,6 +9,7 @@ from pdftools import PdfToolsModule
 from charts import ChartModule
 from qtquickqml import QMLModule
 from camera import CameraModule
+from matplot import MatplotlibModule
 
 
 class MainWindow(QMainWindow):
@@ -180,6 +181,10 @@ class MainWindow(QMainWindow):
         self.typingAction.setStatusTip("Start Typing")
         self.typingAction.setShortcut('Shift+Alt+T')
         self.autoGUIMenu.addAction(self.typingAction)
+
+        self.matplotModule = MatplotlibModule()
+        self.pages.addWidget(self.matplotModule)
+        self.listWidget.addItem("Matplotlib Demo")
 
         self.onPageChanged()
 
