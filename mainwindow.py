@@ -10,6 +10,7 @@ from charts import ChartModule
 from qtquickqml import QMLModule
 from camera import CameraModule
 from matplot import MatplotlibModule
+from geminiapi import GeminiModule
 
 
 class MainWindow(QMainWindow):
@@ -185,6 +186,10 @@ class MainWindow(QMainWindow):
         self.matplotModule = MatplotlibModule()
         self.pages.addWidget(self.matplotModule)
         self.listWidget.addItem("Matplotlib Demo")
+
+        self.geminiDemo = GeminiModule()
+        self.pages.addWidget(self.geminiDemo)
+        self.listWidget.addItem("Gemini API + Speech Recognition Demo")
 
         self.onPageChanged()
 
