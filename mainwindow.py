@@ -11,6 +11,7 @@ from qtquickqml import QMLModule
 from camera import CameraModule
 from matplot import MatplotlibModule
 from geminiapi import GeminiModule
+from nlp import NLPModule
 
 
 class MainWindow(QMainWindow):
@@ -190,6 +191,10 @@ class MainWindow(QMainWindow):
         self.geminiDemo = GeminiModule()
         self.pages.addWidget(self.geminiDemo)
         self.listWidget.addItem("Gemini API + Speech Recognition Demo")
+
+        self.nlpDemo = NLPModule()
+        self.pages.addWidget(self.nlpDemo)
+        self.listWidget.addItem("Natural Language Processing - NLTK Demo")
 
         self.onPageChanged()
 
