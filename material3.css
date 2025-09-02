@@ -1,6 +1,15 @@
 /* ================================
    QPushButton - Material 3 style
    ================================ */
+
+QWidget {
+    background-color: #FFFFFF;   /* Surface */
+    color: #1F1F1F;              /* On-surface */
+    font-family: "Segoe UI", "Roboto", sans-serif;
+    font-size: 14px;
+    padding: 8px;
+}
+
 QPushButton {
     color: white;
     border: none;
@@ -250,5 +259,200 @@ QProgressBar {
     text-align: center;
     font-weight: bold;
     color: #263238;
+}
+
+/* === QTableWidget === */
+QTableWidget {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;   /* outer border */
+    gridline-color: #e0e0e0;     /* divider color */
+    selection-background-color: #e3f2fd; /* light blue selection */
+    selection-color: #000000;
+}
+
+/* === Table Cells === */
+QTableWidget::item {
+    border: 1px solid #e0e0e0;   /* subtle cell borders */
+    padding: 8px;
+}
+
+/* === Horizontal Header === */
+QHeaderView::section {
+    background-color: #f5f5f5;
+    color: #333333;
+    padding: 8px;
+    border: 1px solid #e0e0e0;   /* header borders */
+    font-weight: 500;
+}
+
+/* Hover effect for headers */
+QHeaderView::section:hover {
+    background-color: #eeeeee;
+}
+
+/* Pressed header effect */
+QHeaderView::section:pressed {
+    background-color: #e0e0e0;
+}
+
+/* === Vertical Header (Row Numbers) === */
+QHeaderView::section:vertical {
+    background-color: #f5f5f5;
+    color: #555555;
+    padding: 6px;
+    border: 1px solid #e0e0e0;
+    font-weight: 500;
+}
+
+/* QToolBar - Material 3 styling */
+QToolBar {
+    background: #FFFFFF; /* Surface */
+    border-bottom: 1px solid #E0E0E0; /* Divider */
+    spacing: 6px;
+    padding: 4px;
+}
+
+/* QAction inside QToolBar (they render as QToolButton) */
+QToolButton {
+    background: transparent;
+    border: none;
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 8px;
+    color: #1F1F1F; /* On-surface */
+}
+
+/* Hover effect */
+QToolButton:hover {
+    background-color: #E8F0FE; /* Primary container hover */
+}
+
+/* Pressed effect */
+QToolButton:pressed {
+    background-color: #D2E3FC; /* Stronger pressed state */
+}
+
+/* Checked (toggle action) */
+QToolButton:checked {
+    background-color: #1A73E8; /* Primary */
+    color: white; /* On-primary */
+}
+
+/* Separator line */
+QToolBar::separator {
+    background: #E0E0E0;
+    width: 1px;
+    margin: 4px 6px;
+}
+
+/* QGraphicsView - Material 3 Styling */
+QGraphicsView {
+    background-color: #FFFFFF;  /* M3 surface color */
+    border: 1px solid #E0E0E0; /* subtle divider */
+    border-radius: 12px;
+    padding: 4px;
+}
+
+/* Scrollbars inside QGraphicsView */
+QGraphicsView QScrollBar:horizontal,
+QGraphicsView QScrollBar:vertical {
+    background: #F5F5F5;        /* M3 surface container */
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+}
+
+QGraphicsView QScrollBar::handle:horizontal,
+QGraphicsView QScrollBar::handle:vertical {
+    background: #BDBDBD;        /* handle color */
+    min-height: 20px;
+    min-width: 20px;
+    border-radius: 6px;
+}
+
+QGraphicsView QScrollBar::handle:hover {
+    background: #9E9E9E;        /* hover effect */
+}
+
+QGraphicsView QScrollBar::add-line,
+QGraphicsView QScrollBar::sub-line {
+    background: none;
+    border: none;
+}
+
+/* QComboBox - Material 3 Styling */
+QComboBox {
+    background-color: #FFFFFF;       /* M3 surface */
+    border: 1px solid #E0E0E0;       /* outline */
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #212121;                  /* text color */
+}
+
+/* Hover effect */
+QComboBox:hover {
+    border: 1px solid #6200EE;       /* M3 primary */
+}
+
+/* Pressed / Focused */
+QComboBox:focus {
+    border: 2px solid #6200EE;
+}
+
+/* Drop-down button */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left: 1px solid #E0E0E0;
+    background-color: transparent;
+}
+
+/* Down arrow */
+QComboBox::down-arrow {
+    image: url(:/qt-project.org/styles/commonstyle/images/arrowdown-16.png);
+    width: 12px;
+    height: 12px;
+}
+
+/* Popup menu */
+QComboBox QAbstractItemView {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    selection-background-color: #E8DEF8;  /* M3 secondary container */
+    selection-color: #000000;
+    outline: none;
+}
+
+/* QPlainTextEdit - Material 3 Styling */
+QPlainTextEdit {
+    background-color: #FFFFFF;           /* Surface */
+    border: 1px solid #E0E0E0;           /* Outline */
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #212121;                      /* On-surface text */
+    selection-background-color: #E8DEF8; /* Secondary container */
+    selection-color: #000000;
+}
+
+/* Focused state */
+QPlainTextEdit:focus {
+    border: 2px solid #6200EE;           /* Primary outline */
+}
+
+/* Disabled state */
+QPlainTextEdit:disabled {
+    background-color: #F5F5F5;
+    color: #9E9E9E;
+    border: 1px solid #E0E0E0;
+}
+
+/* Placeholder (hint text) */
+QPlainTextEdit[placeholderText] {
+    color: #9E9E9E;                      /* Hint text color */
+    font-style: italic;                  /* Optional: differentiate placeholder */
 }
 

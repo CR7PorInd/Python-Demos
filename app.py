@@ -17,6 +17,7 @@ else:
 
 with open('material3.css', 'r') as stylesheet:
     app.setStyleSheet(stylesheet.read())
+    pass
 
 app.setApplicationName("Python Demos App")
 app.setApplicationVersion("1.0.0")

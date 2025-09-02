@@ -3,6 +3,7 @@ from PySide6.QtGui import QAction, QActionGroup
 from PySide6.QtPdfWidgets import QPdfView
 from PySide6.QtWidgets import QMainWindow, QStackedWidget, QListWidget, QDockWidget, QMenuBar, QMenu
 
+from imageedit import ImageEditorModule
 from autogui import PyAutoGUIModule
 from webengine import WebEngineModule
 from pdftools import PdfToolsModule
@@ -12,6 +13,7 @@ from camera import CameraModule
 from matplot import MatplotlibModule
 from geminiapi import GeminiModule
 from nlp import NLPModule
+from translator import TranslatorModule
 
 
 class MainWindow(QMainWindow):
@@ -190,11 +192,19 @@ class MainWindow(QMainWindow):
 
         self.geminiDemo = GeminiModule()
         self.pages.addWidget(self.geminiDemo)
-        self.listWidget.addItem("Gemini API + Speech Recognition Demo")
+        self.listWidget.addItem("Gemini + Speech Recognition Demo")
 
         self.nlpDemo = NLPModule()
         self.pages.addWidget(self.nlpDemo)
-        self.listWidget.addItem("Natural Language Processing - NLTK Demo")
+        self.listWidget.addItem("NLP - NLTK Demo")
+
+        self.imageEditor = ImageEditorModule()
+        self.pages.addWidget(self.imageEditor)
+        self.listWidget.addItem("PIL Image Editor Demo")
+
+        self.translator = TranslatorModule()
+        self.pages.addWidget(self.translator)
+        self.listWidget.addItem("Google Translate Demo")
 
         self.onPageChanged()
 

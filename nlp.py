@@ -268,5 +268,4 @@ class NLPModule(QWidget):
 
         self.progressBar.setStyleSheet(chunkStyle)
 
-        self.analysisTable.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         self.analysisTable.resizeColumnsToContents()
