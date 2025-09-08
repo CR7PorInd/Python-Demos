@@ -14,6 +14,7 @@ from matplot import MatplotlibModule
 from geminiapi import GeminiModule
 from nlp import NLPModule
 from translator import TranslatorModule
+from nonviewables import NonViewableDemosModule
 
 
 class MainWindow(QMainWindow):
@@ -89,7 +90,7 @@ class MainWindow(QMainWindow):
 
         self.browseAction = QAction("Browse")
         self.browseAction.triggered.connect(self.pdfModule.browseFile)
-        self.browseAction.setShortcut("Ctrl+O")
+        self.browseAction.setShortcut("Ctrl+Shift+P")
         self.browseAction.setStatusTip("Browse PDF File")
         self.pdfMenu.addAction(self.browseAction)
 
@@ -202,9 +203,21 @@ class MainWindow(QMainWindow):
         self.pages.addWidget(self.imageEditor)
         self.listWidget.addItem("PIL Image Editor Demo")
 
+        self.imageEditorMenu = QMenu("Image Editor")
+        self.menubar.addMenu(self.imageEditorMenu)
+
+        self.imageEditorMenu.addAction(self.imageEditor.openAction)
+        self.imageEditorMenu.addAction(self.imageEditor.saveAction)
+        self.imageEditorMenu.addAction(self.imageEditor.rotateClockAction)
+        self.imageEditorMenu.addAction(self.imageEditor.rotateAntiClockAction)
+
         self.translator = TranslatorModule()
         self.pages.addWidget(self.translator)
         self.listWidget.addItem("Google Translate Demo")
+
+        self.nonViewableModule = NonViewableDemosModule()
+        self.pages.addWidget(self.nonViewableModule)
+        self.listWidget.addItem("Non-Viewable Demos")
 
         self.onPageChanged()
 

@@ -11,30 +11,27 @@ QWidget {
 }
 
 QPushButton {
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 24px;           /* increased padding */
+    border: 2px solid #6200EE;       /* Material Purple (Primary) */
+    border-radius: 8px;              /* Rounded corners */
+    background-color: transparent;   /* Outlined (no fill) */
+    color: #6200EE;                  /* Text color matches border */
+    padding: 6px 16px;               /* Comfortable padding */
     font-size: 14px;
     font-weight: 500;
-    min-width: 80px;
-    min-height: 36px;
-    background-color: #6200EE;
 }
 
 QPushButton:hover {
-    background-color: #3700B3;
+    background-color: rgba(98, 0, 238, 0.08);  /* Slight tint on hover */
 }
 
 QPushButton:pressed {
-    padding-left: 22px;
-    padding-top: 14px;
-    background-color: #3700B3;
+    background-color: rgba(98, 0, 238, 0.16);  /* Stronger tint on press */
 }
 
 QPushButton:disabled {
-    background-color: #E0E0E0;
-    color: #9E9E9E;
+    border: 2px solid #BDBDBD;   /* Grey border */
+    color: #BDBDBD;              /* Grey text */
+    background-color: transparent;
 }
 
 /* ================================
@@ -117,6 +114,15 @@ QMenuBar::item:selected {
     border-radius: 8px;
 }
 
+/* Disabled menubar items */
+QMenuBar::item:disabled {
+    color: rgba(0, 0, 0, 0.38);   /* M3 disabled text */
+    background: transparent;
+}
+
+/* =========================
+   QMenu Styling
+   ========================= */
 QMenu {
     background-color: #FFFFFF;
     border: 1px solid #E0E0E0;
@@ -134,6 +140,12 @@ QMenu::item {
 QMenu::item:selected {
     background-color: #EDE7F6;
     color: #000000;
+}
+
+/* Disabled menu items */
+QMenu::item:disabled {
+    color: rgba(0, 0, 0, 0.38);   /* M3 disabled text */
+    background: transparent;      /* no hover or selection */
 }
 
 /* ================================
@@ -157,40 +169,73 @@ QMenu::item:hover:checked {
     background-color: #EDE7F6;   /* keep overlay subtle */
 }
 
+/* Disabled radio/check indicators */
+QMenu::indicator:exclusive:disabled {
+    border: 2px solid rgba(0, 0, 0, 0.38);
+    background-color: #F5F5F5;
+}
+
+QMenu::indicator:exclusive:checked:disabled {
+    background-color: rgba(98, 0, 238, 0.38); /* faded primary */
+}
+
+/* ================================
+   QTabWidget + QTabBar (Material 3)
+   ================================ */
 QTabWidget::pane {
-    border: 1px solid #E0E0E0;
-    border-radius: 8px;
+    border: none;                 /* no raised container */
     background: #FFFFFF;
 }
 
+/* Tab Bar */
+QTabBar {
+    qproperty-drawBase: 0;
+    background: #FFFFFF;
+}
+
+/* Base style for tabs */
 QTabBar::tab {
-    background: #F5F5F5;
-    color: #1F1F1F;
-    padding: 8px 18px;
-    margin: 2px;
-    border-radius: 6px;
-    font-family: 'Segoe UI', sans-serif;
+    color: rgba(0, 0, 0, 0.60);   /* unselected text */
+    background: transparent;
+    padding: 8px 16px;
+    margin: 0;
+    border: none;
+    font-family: "Roboto", sans-serif;
     font-size: 14px;
+    font-weight: 500;             /* medium weight */
+    border-bottom: 2px solid transparent;  /* indicator placeholder */
 }
 
-QTabBar::tab:selected {
-    background: #6750A4; /* Material 3 Primary */
-    color: white;
-    font-weight: 500;
-}
-
+/* Hover effect */
 QTabBar::tab:hover {
-    background: #EADDFF; /* M3 hover */
-    color: #21005E;
+    background-color: rgba(98, 0, 238, 0.08);  /* subtle overlay tint */
 }
 
+/* Selected tab */
+QTabBar::tab:selected {
+    color: #6200EE;               /* primary text */
+    border-bottom: 2px solid #6200EE;  /* underline indicator */
+    background: transparent;       /* no box */
+}
+
+/* Disabled tab */
 QTabBar::tab:disabled {
-    background: #F0F0F0;
-    color: #9E9E9E;
+    color: rgba(0, 0, 0, 0.38);    /* muted disabled */
+    border-bottom: 2px solid transparent;
 }
 
-QTabWidget::tab-bar {
-    left: 10px; /* slight padding */
+/* Remove extra gaps on edges */
+QTabBar::tab:first {
+    margin-left: 0;
+}
+QTabBar::tab:last {
+    margin-right: 0;
+}
+
+/* Content area */
+QTabWidget > QWidget {
+    background: #FFFFFF;
+    border: none;                  /* flat surface */
 }
 
 QLineEdit {

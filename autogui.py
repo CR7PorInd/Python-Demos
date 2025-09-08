@@ -1,8 +1,9 @@
-from typing import List, Tuple
+from threading import Thread
+from typing import List
 
 import pyautogui
 from PySide6.QtWidgets import QTabWidget, QTextEdit, QWidget, QHBoxLayout, QLabel, QPushButton, QVBoxLayout
-from threading import Thread
+
 
 class HotKeyDemo(QWidget):
     def __init__(self):
@@ -94,6 +95,8 @@ class HotKeyDemo(QWidget):
 
     def hotkeyThreaded(self, keys: List[str]):
         pyautogui.hotkey(*keys)
+
+
 
 class PyAutoGUIModule(QTabWidget):
     def __init__(self):

@@ -31,7 +31,7 @@ class PdfToolsModule(QWidget):
         self.layout.addWidget(self.exportButton)
 
     def browseFile(self):
-        filePath, _ = QFileDialog.getOpenFileName(self, "Open PDF File", "", "PDF Files (*.pdf)")
+        filePath, _ = QFileDialog.getOpenFileName(self, "Open PDF File", "", "Portable Document Format (*.pdf)")
         self.filePath = filePath
         self.loadPdf()
 

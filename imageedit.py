@@ -35,13 +35,13 @@ class ImageEditorModule(QWidget):
         self.openAction.triggered.connect(self.openImage)
         self.openAction.setStatusTip("Open an image file.")
         self.openAction.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileIcon))
-        self.openAction.setShortcut("Ctrl+O")
+        self.openAction.setShortcut("Ctrl+Shift+I")
         self.toolbar.addAction(self.openAction)
 
         self.saveAction = QAction("Save", self)
         self.saveAction.triggered.connect(self.saveImage)
         self.saveAction.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogSaveButton))
-        self.saveAction.setShortcut("Ctrl+Shift+S")
+        self.saveAction.setShortcut("Alt+Ctrl+S")
         self.toolbar.addAction(self.saveAction)
 
         self.toolbar.addSeparator()

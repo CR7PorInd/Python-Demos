@@ -64,15 +64,14 @@ class GeminiModule(QWidget):
 
     def getVoiceCommand(self):
         with sr.Microphone() as source:
-            # recognizer.adjust_for_ambient_noise(source)
+            self.recognizer.adjust_for_ambient_noise(source)
             try:
                 audio = self.recognizer.listen(source, timeout=10)
                 command: str = self.recognizer.recognize_google(audio)
                 self.voiceInput.setText("Speak")
                 QApplication.processEvents()
                 if command.strip() == "":
-                    self.voiceInput.setEnabled(True)
-                    self.sendButton.setEnabled(True)
+                    self.enableButtons()
                     self.inputTextEdit.clear()
                     QApplication.processEvents()
                     return
@@ -81,25 +80,33 @@ class GeminiModule(QWidget):
             except Exception:
                 self.voiceInput.setText("Speak")
                 self.inputTextEdit.clear()
-                self.voiceInput.setEnabled(True)
-                self.sendButton.setEnabled(True)
+                self.enableButtons()
                 QApplication.processEvents()
 
     def onVoiceInput(self):
         self.voiceInput.setText("Listening...")
-        self.sendButton.setEnabled(False)
-        self.voiceInput.setEnabled(False)
+        self.disableButtons()
         QApplication.processEvents()
 
         worker = Thread(target=self.getVoiceCommand, daemon=True)
         worker.run()
+
+    def disableButtons(self):
+        self.sendButton.setEnabled(False)
+        self.voiceInput.setEnabled(False)
+        self.imageUpload.setEnabled(False)
+
+    def enableButtons(self):
+        self.sendButton.setEnabled(True)
+        self.voiceInput.setEnabled(True)
+        self.imageUpload.setEnabled(True)
 
 
     def onMessageSent(self):
         if self.inputTextEdit.text().strip() == "":
             return
 
-        self.sendButton.setEnabled(False)
+
         QApplication.processEvents()
 
         worker = Thread(target=self.sendMessage, daemon=True)
@@ -110,7 +117,7 @@ class GeminiModule(QWidget):
         image, _ = QFileDialog.getOpenFileName(self, "Select Image", "Upload Image",
                                                "Image Files (*.png *.jpg *.jpeg *.bmp)")
         if image:
-            self.sendButton.setEnabled(False)
+            self.disableButtons()
             QApplication.processEvents()
 
             worker = Thread(target=self.sendPic, args=(ImageOpen(image),), daemon=True)
@@ -171,7 +178,6 @@ class GeminiModule(QWidget):
 
         self.inputTextEdit.clear()
         self.voiceInput.setText("Speak")
-        self.voiceInput.setEnabled(True)
-        self.sendButton.setEnabled(True)
+        self.enableButtons()
 
         QApplication.processEvents()
