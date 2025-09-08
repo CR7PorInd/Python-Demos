@@ -24,3 +24,6 @@ This demo shows how Qt Multimedia can be used to capture images and display live
 `pip install pyautogui`
 - Demo #1 - Automatic Typing using `pyautogui.typewrite()`
 - Demo #2 - Automated Hotkey Pressing `using pyautogui.hotkey()`
+
+### Non-Viewables
+- Demo #1 - Selenium Web-driver Typing Hack - Download Chrome Driver and paste in C:\Windows. [Download Chrome Driver](https://storage.googleapis.com/chrome-for-testing-public/140.0.7339.80/win64/chrome-win64.zip)
